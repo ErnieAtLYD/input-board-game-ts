@@ -1,16 +1,6 @@
 import { Ctx } from 'boardgame.io';
-import { RACK } from '../config';
 import { Piece, InputBoardGameState } from '../types';
 import GamePiece from '../components/GamePiece';
-
-const isPlayersPieceCB = (color: string) => (piece: Piece) =>
-  piece.color === color;
-
-export const getOtherTeamPieces = (piece: Piece, pieces: Piece[]) =>
-  pieces
-    .filter((p) => p.id !== piece.id)
-    .filter(isPlayersPieceCB(piece.color))
-    .filter((p) => p.currentPos !== RACK);
 
 export const getPieceFromId = (pieces: Piece[], pieceID: string) =>
   pieces.find((piece) => piece.id === pieceID);

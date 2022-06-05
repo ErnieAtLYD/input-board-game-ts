@@ -5,7 +5,6 @@ import { CAPTURED, ENTERING_SPACE, MAX_TILES_IN_QUEUE, RACK } from '../config';
 import { popPieceFromStack, pushPieceToStack } from './entering-space';
 import {
   getNextMove,
-  getOtherTeamPieces,
   getPieceFromId,
   isInPlayingArea,
   isPlayersTurn,
@@ -31,10 +30,6 @@ export const movePiece: any = (
     // If moving from RACK to ENTERING SPACE, handle logic
     pushPieceToStack(piece, G);
   } else if (piece.currentPos === ENTERING_SPACE) {
-    // If moving from ENTERING SPACE to PLAYING AREA, handle logic
-    if (G.cells[getNextMove(piece)] !== null) {
-      return INVALID_MOVE;
-    }
     popPieceFromStack(piece, G);
   } else if (isInPlayingArea(piece.currentPos)) {
     G.cells[piece.currentPos] = null;
@@ -43,9 +38,9 @@ export const movePiece: any = (
   blockAndUnblockPieces(piece, G);
 
   // Did we capture an opponent's piece?
-  if (G.cells[getNextMove(piece)]) {
+  if (G.cells[piece.nextMove]) {
     const opponentPiece = G.pieces.find(
-      (p) => p.id === G.cells[getNextMove(piece)]
+      (p) => p.id === G.cells[piece.nextMove]
     );
     opponentPiece && (opponentPiece.currentPos = CAPTURED);
   }
@@ -108,15 +103,24 @@ export const toEnteringSpace: Move<InputBoardGameState> = (
 };
 
 function blockAndUnblockPieces(piece: Piece, G: InputBoardGameState) {
-  const teamPieces = getOtherTeamPieces(piece, G.pieces);
-  // UNBLOCK any pieces whose next move at currentPos AND the same color
+  const teamPieces = G.pieces
+    .filter((p) => p.id !== piece.id)
+    .filter((p) => p.currentPos !== RACK);
+
+  // Our piece will be moving from point A to point B.
+  // Find pieces whose next move will be point A, our pieces current piece.
+  // if they are on the same team, then they can move
+
   teamPieces
-    .filter((p) => getNextMove(p) === piece.currentPos)
+    .filter((p) => p.nextMove === piece.currentPos)
     .forEach((p) => (p.canMove = true));
 
-  // BLOCK any pieces -- including the entering area -- whose NEXT move
-  // will be at currentPosition AND the same color
+  // Find pieces whose next move will be point B, our pieces next move.
+  // If they are on the same team, they can NOT move
+  // If they are on the opposing team, they CAN move; it'll be a capture
   teamPieces
-    .filter((p) => getNextMove(p) === getNextMove(piece))
-    .forEach((p) => (p.canMove = false));
+    .filter((p) => p.nextMove === piece.nextMove)
+    .forEach((p) => {
+      p.canMove = !(p.color === piece.color);
+    });
 }
