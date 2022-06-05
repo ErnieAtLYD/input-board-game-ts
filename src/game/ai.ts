@@ -8,12 +8,11 @@ import {
   BLUE,
 } from '../config';
 import { InputBoardGameState } from '../types';
-import { getNextMove, isInPlayingArea } from './utils';
+import { isInPlayingArea } from './utils';
 
 export const enumerate = (G: InputBoardGameState, ctx: Ctx) => {
-  let moves = [],
-    nextMove,
-    nextCell;
+  const moves = [];
+  let nextCell;
   const enteringSpace = G.enteringSpace[ctx.currentPlayer];
   const filteredPieces = G.pieces.filter(
     (piece) =>
@@ -21,15 +20,14 @@ export const enumerate = (G: InputBoardGameState, ctx: Ctx) => {
   );
 
   for (let piece of filteredPieces) {
-    const { id, currentPos } = piece;
+    const { id, currentPos, nextMove } = piece;
 
-    nextMove = getNextMove(piece);
     nextCell = G.cells[nextMove];
 
     if (nextMove === RACK) {
-      moves.push({ move: 'cycleToRack', args: [id] });
+      moves.push({ move: 'toRack', args: [id] });
       if (enteringSpace.length >= MAX_TILES_IN_QUEUE) continue;
-      moves.push({ move: 'cycleToEnteringSpace', args: [id] });
+      moves.push({ move: 'toEnteringSpace', args: [id] });
     } else if (currentPos === RACK) {
       if (enteringSpace.length >= MAX_TILES_IN_QUEUE) continue;
       moves.push({ move: 'movePiece', args: [id] });
