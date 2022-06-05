@@ -1,0 +1,64 @@
+/* FIXME: change to styled components later */
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+
+.board .board__rack--blue {
+  grid-area: 1 / 1 / 2 / 6;
+}
+.board .board__rack--red {
+  grid-area: 6 / 1 / 7 / 6;
+}
+.board .board__es--blue {
+  grid-area: 2 / 1 / 3 / 2;
+}
+.board .board__es--red {
+  grid-area: 5 / 5 / 6 / 6;
+}
+.board .board__grid--0 {
+  grid-area: 2 / 2 / 3 / 3;
+}
+.board .board__grid--1 {
+  grid-area: 2 / 3 / 3 / 4;
+}
+.board .board__grid--2 {
+  grid-area: 2 / 4 / 3 / 5;
+}
+.board .board__grid--3 {
+  grid-area: 3 / 2 / 4 / 3;
+}
+.board .board__grid--4 {
+  grid-area: 3 / 3 / 4 / 4;
+}
+.board .board__grid--5 {
+  grid-area: 3 / 4 / 4 / 5;
+}
+.board .board__grid--6 {
+  grid-area: 4 / 2 / 5 / 3;
+}
+.board .board__grid--7 {
+  grid-area: 4 / 3 / 5 / 4;
+}
+.board .board__grid--8 {
+  grid-area: 4 / 4 / 5 / 5;
+}
+.board .board__grid--9 {
+  grid-area: 5 / 2 / 6 / 3;
+}
+.board .board__grid--10 {
+  grid-area: 5 / 3 / 6 / 4;
+}
+.board .board__grid--11 {
+  grid-area: 5 / 4 / 6 / 5;
+}
+.board .board__captured--blue {
+  grid-area: 3 / 1 / 6 / 2;
+}
+.board .board__captured--red {
+  grid-area: 2 / 5 / 5 / 6;
+}
