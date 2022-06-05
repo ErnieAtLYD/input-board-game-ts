@@ -78,6 +78,7 @@ export const toRack: Move<InputBoardGameState> = (
   // Move off of the PLAYING AREA
   if (isInPlayingArea(piece.currentPos)) G.cells[piece.currentPos] = null;
   piece.currentPos = RACK;
+  piece.nextMove = ENTERING_SPACE;
 };
 
 export const toEnteringSpace: Move<InputBoardGameState> = (
@@ -99,11 +100,21 @@ export const toEnteringSpace: Move<InputBoardGameState> = (
 
   // Move off of the PLAYING AREA
   if (isInPlayingArea(piece.currentPos)) G.cells[piece.currentPos] = null;
+
+  // FIXME: refactor this to be more DRY
+  G.pieces
+    .filter((p) => p.id !== piece.id)
+    .filter((p) => p.currentPos !== RACK)
+    .filter((p) => p.nextMove === piece.currentPos)
+    .forEach((p) => (p.canMove = true));
+
+  pushPieceToStack(piece, G);
   piece.currentPos = ENTERING_SPACE;
+  piece.nextMove = piece.moves[1] as PossiblePositions;
 };
 
 function blockAndUnblockPieces(piece: Piece, G: InputBoardGameState) {
-  const teamPieces = G.pieces
+  const otherPieces = G.pieces
     .filter((p) => p.id !== piece.id)
     .filter((p) => p.currentPos !== RACK);
 
@@ -111,14 +122,14 @@ function blockAndUnblockPieces(piece: Piece, G: InputBoardGameState) {
   // Find pieces whose next move will be point A, our pieces current piece.
   // if they are on the same team, then they can move
 
-  teamPieces
+  otherPieces
     .filter((p) => p.nextMove === piece.currentPos)
     .forEach((p) => (p.canMove = true));
 
   // Find pieces whose next move will be point B, our pieces next move.
   // If they are on the same team, they can NOT move
   // If they are on the opposing team, they CAN move; it'll be a capture
-  teamPieces
+  otherPieces
     .filter((p) => p.nextMove === piece.nextMove)
     .forEach((p) => {
       p.canMove = !(p.color === piece.color);
