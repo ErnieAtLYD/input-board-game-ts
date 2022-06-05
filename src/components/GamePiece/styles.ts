@@ -1,9 +1,12 @@
 import styled from 'styled-components';
-import { RED } from '../../config';
+import { CAPTURED, RED } from '../../config';
 import { ESWrapper } from '../Board/EnteringSpace';
 import { StyledTray } from '../Board/Tray';
 
-export const GamePieceContainer = styled.div<{ canMove?: boolean }>`
+export const GamePieceContainer = styled.div<{
+  canMove?: boolean;
+  currentPos: number;
+}>`
   z-index: 5;
   background-color: #ddd;
   position: relative;
@@ -18,7 +21,8 @@ export const GamePieceContainer = styled.div<{ canMove?: boolean }>`
     rgba(255, 255, 255, 0.08) 0 1px 0 inset;
 
   &::after {
-    display: ${({ canMove }) => (canMove ? 'none' : 'block')};
+    display: ${({ canMove, currentPos }) =>
+      canMove && currentPos !== CAPTURED ? 'none' : 'block'};
     content: '';
     position: absolute;
     inset: 0;

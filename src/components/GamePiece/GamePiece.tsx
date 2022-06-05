@@ -19,6 +19,7 @@ interface GamePieceProps {
   moves: number[];
   nextMove: PossiblePositions;
   atLastPosition: boolean;
+  currentPos: PossiblePositions;
 }
 
 const GamePiece = (props: GamePieceProps) => {
@@ -34,6 +35,7 @@ const GamePiece = (props: GamePieceProps) => {
       as={motion.div}
       layoutId={`piece_${props.id}`}
       canMove={props.canMove}
+      currentPos={props.currentPos}
       onClick={() => {
         moves.movePiece(props.id);
         setSelected && setSelected(null);
