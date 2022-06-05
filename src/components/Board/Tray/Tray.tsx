@@ -8,8 +8,13 @@ export const StyledTray = styled.div`
   border: 8px inset #aaa;
   background-color: #333;
   position: relative;
+  height: 378px;
   overflow: hidden;
   margin: 6px;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
 `;
 
 interface TrayProps {
