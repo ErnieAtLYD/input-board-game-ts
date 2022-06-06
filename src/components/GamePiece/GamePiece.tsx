@@ -23,7 +23,6 @@ interface GamePieceProps {
 }
 
 const GamePiece = (props: GamePieceProps) => {
-  // const { G, ctx, moves } = useBoardContext();
   const { ctx, moves } = useBoardContext();
   const { setSelected } = usePreviewContext();
 
@@ -42,7 +41,7 @@ const GamePiece = (props: GamePieceProps) => {
       }}
       onMouseEnter={() => canHighlight && setSelected(props.nextMove)}
       onMouseLeave={() => canHighlight && setSelected(null)}
-      whileHover={{ scale: 1.05 }}
+      whileHover={{ scale: canHighlight ? 1.05 : 1 }}
     >
       <Inner>
         <Face color={props.color}>
