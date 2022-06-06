@@ -11,7 +11,8 @@ export const STATS = {
   },
 };
 
-export const HIGHLIGHT_COLOR = 'hotpink';
+// note: this MUST be hex for framer motion to animate
+export const HIGHLIGHT_COLOR = '#FF69B4';
 
 export const ENTERING_SPACE = 100;
 export const RACK = 200;

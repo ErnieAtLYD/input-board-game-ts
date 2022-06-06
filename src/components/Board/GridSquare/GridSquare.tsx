@@ -1,4 +1,5 @@
-import { BLUE, RED } from '../../../config';
+import { motion } from 'framer-motion/dist/framer-motion';
+import { BLUE, HIGHLIGHT_COLOR, RED } from '../../../config';
 import { useBoardContext, usePreviewContext } from '../../../context';
 import { renderPieceById } from '../../../game/utils';
 import { Color } from '../../../types';
@@ -23,11 +24,20 @@ export const GridSquare = ({ className, pos }: GridSquareProps) => {
     dot = !renderedPiece && RED;
   }
 
+  const gridSquareVariants = {
+    initial: { backgroundColor: '#999' },
+    highlighted: { backgroundColor: HIGHLIGHT_COLOR },
+  };
+
   return (
     <GridSquareStyle
-      className={`${className} board__grid--${pos}`}
+      as={motion.div}
+      initial={'initial'}
+      transition={{ duration: 0.25 }}
+      variants={gridSquareVariants}
+      animate={selected === pos ? 'highlighted' : 'initial'}
+      className={`board__grid--${pos}`}
       dot={dot as Color | undefined}
-      highlighted={selected === pos}
     >
       {renderedPiece}
     </GridSquareStyle>

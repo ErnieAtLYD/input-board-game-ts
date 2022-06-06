@@ -3,11 +3,8 @@ import { HIGHLIGHT_COLOR, RED } from '../../../config';
 import { Color } from '../../../types';
 
 export const GridSquareStyle = styled.div<{
-  highlighted: boolean;
   dot?: Color | undefined;
 }>`
-  background-color: ${(props) =>
-    props.highlighted ? HIGHLIGHT_COLOR : '#999'};
   border: 8px inset #aaa;
   margin: 6px;
   padding: 3px 0 0 3px;
