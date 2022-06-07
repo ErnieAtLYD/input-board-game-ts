@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion/dist/framer-motion';
-import { ENTERING_SPACE, RED, HIGHLIGHT_COLOR } from '../../config';
-import { Color } from '../../types';
-import { GridSquareStyle } from './GridSquare/styles';
-import { useBoardContext, usePreviewContext } from '../../context';
-import { renderPieceById } from '../../game/utils';
+import { ENTERING_SPACE, RED, HIGHLIGHT_COLOR } from '../../../config';
+import { Color } from '../../../types';
+import { GridSquareStyle } from '../GridSquare/styles';
+import { useBoardContext, usePreviewContext } from '../../../context';
+import { renderPieceById } from '../../../game/utils';
 
 export const ESWrapper = styled(GridSquareStyle)<{}>``;
 

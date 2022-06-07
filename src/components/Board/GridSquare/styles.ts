@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { HIGHLIGHT_COLOR, RED } from '../../../config';
+import { RED } from '../../../config';
 import { Color } from '../../../types';
 
 export const GridSquareStyle = styled.div<{

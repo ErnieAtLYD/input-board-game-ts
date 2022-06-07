@@ -10,6 +10,7 @@ export const STATS = {
     hexColor: '0000ff',
   },
 };
+export const DEBUG = false;
 
 // note: this MUST be hex for framer motion to animate
 export const HIGHLIGHT_COLOR = '#FF69B4';
@@ -37,8 +38,10 @@ export const PIECES = [
 
 // export const AI_BOT_ITERATIONS = 750;
 // export const AI_BOT_PLAYOUT_DEPTH = 50;
-export const AI_BOT_ITERATIONS = 1;
-export const AI_BOT_PLAYOUT_DEPTH = 1;
+export const AI_BOT_ITERATIONS = 425;
+export const AI_BOT_PLAYOUT_DEPTH = 25;
+// export const AI_BOT_ITERATIONS = 1;
+// export const AI_BOT_PLAYOUT_DEPTH = 1;
 
 // Delay AI stepping  to allow React to render animation
 // before the main thread gets blocked by AI iterations

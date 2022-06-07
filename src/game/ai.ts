@@ -16,7 +16,9 @@ export const enumerate = (G: InputBoardGameState, ctx: Ctx) => {
   const enteringSpace = G.enteringSpace[ctx.currentPlayer];
   const filteredPieces = G.pieces.filter(
     (piece) =>
-      piece.color === ctx.currentPlayer && piece.currentPos !== CAPTURED
+      piece.color === ctx.currentPlayer &&
+      piece.currentPos !== CAPTURED &&
+      piece.canMove
   );
 
   for (let piece of filteredPieces) {

@@ -17,6 +17,20 @@ export type Piece = {
   nextMove: PossiblePositions;
 };
 
+export type PossiblePieceIDs =
+  | 'b0'
+  | 'b1'
+  | 'b2'
+  | 'b3'
+  | 'b4'
+  | 'b5'
+  | 'r0'
+  | 'r1'
+  | 'r2'
+  | 'r3'
+  | 'r4'
+  | 'r5';
+
 export type PossiblePositions =
   | 0
   | 1
@@ -33,3 +47,8 @@ export type PossiblePositions =
   | typeof RACK
   | typeof ENTERING_SPACE
   | typeof CAPTURED;
+
+export interface AIMoves {
+  move: 'toRack' | 'toEnteringSpace' | 'movePiece';
+  args: PossiblePieceIDs[];
+}

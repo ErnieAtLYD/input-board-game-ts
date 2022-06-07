@@ -3,7 +3,7 @@ import { ENTERING_SPACE, RED } from '../config';
 import { InputBoardGameState, Piece } from '../types';
 import { _G, _ctx, _R0, _R1, _R2, _R3 } from '../config/testing';
 
-describe('the queue', () => {
+xdescribe('the queue', () => {
   describe('pushing a piece into the queue', () => {
     let G: InputBoardGameState;
     let R0: Piece, R1: Piece, R2: Piece, R3: Piece;

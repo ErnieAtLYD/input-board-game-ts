@@ -1,5 +1,5 @@
 import { INVALID_MOVE } from 'boardgame.io/core';
-import { CAPTURED } from '../config';
+import { CAPTURED, ENTERING_SPACE, RACK } from '../config';
 import { _ctx, _G, _R0, _R1, _R2, _R3, _B3 } from '../config/testing';
 import { InputBoardGameState, Piece } from '../types';
 import { movePiece } from './moves';
@@ -46,11 +46,24 @@ describe('general movement', () => {
     expect(G.pieces[0].canMove).toEqual(true);
   });
 
+  xit('moves a blue piece to the entering space', () => {
+    [B3].forEach((p) => G.pieces.push(p));
+    console.log('b3', G.pieces[0]);
+    ['b3'].forEach((id) => {
+      movePiece(G, _ctx, id);
+      expect(G.pieces[0].currentPos).toEqual(ENTERING_SPACE);
+    });
+  });
+
   it('capturing a tile does something', () => {
     [R0, B3].forEach((p) => G.pieces.push(p));
-    ['r0', 'b3', 'r0', 'b3', 'r0', 'b3', 'r0'].forEach((id) =>
-      movePiece(G, _ctx, id)
-    );
+    console.log('r0', G.pieces[0]);
+    console.log('b3', G.pieces[1]);
+    ['r0', 'b3', 'r0', 'b3', 'r0', 'b3', 'r0'].forEach((id) => {
+      movePiece(G, _ctx, id);
+      console.log('r0', G.pieces[0].currentPos);
+      console.log('b3', G.pieces[1].currentPos);
+    });
     expect(G.pieces[1].currentPos).toEqual(CAPTURED);
   });
 });

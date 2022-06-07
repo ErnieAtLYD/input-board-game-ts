@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { CAPTURED, RED } from '../../config';
-import { ESWrapper } from '../Board/EnteringSpace';
+import { ESWrapper } from '../Board/EnteringSpace/EnteringSpace';
 import { StyledTray } from '../Board/Tray';
 
 export const GamePieceContainer = styled.div<{

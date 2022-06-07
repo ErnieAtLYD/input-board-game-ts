@@ -29,10 +29,19 @@ const GamePiece = (props: GamePieceProps) => {
   const canHighlight =
     props.color === ctx.currentPlayer && props.canMove && setSelected;
 
+  const variants = {
+    hover: { scale: canHighlight ? 1.05 : 1 },
+    tap: {
+      scale: canHighlight && !props.atLastPosition ? [1, 2, 1] : 1,
+      transition: { ease: [0.075, 0.82, 0.165, 1], duration: 0.45 },
+    },
+  };
+
   return (
     <GamePieceContainer
       as={motion.div}
       layoutId={`piece_${props.id}`}
+      variants={variants}
       canMove={props.canMove}
       currentPos={props.currentPos}
       onClick={() => {
@@ -41,7 +50,8 @@ const GamePiece = (props: GamePieceProps) => {
       }}
       onMouseEnter={() => canHighlight && setSelected(props.nextMove)}
       onMouseLeave={() => canHighlight && setSelected(null)}
-      whileHover={{ scale: canHighlight ? 1.05 : 1 }}
+      whileHover={'hover'}
+      whileTap={'tap'}
     >
       <Inner>
         <Face color={props.color}>
