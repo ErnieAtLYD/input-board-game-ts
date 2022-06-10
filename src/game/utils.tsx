@@ -1,6 +1,11 @@
 import { Ctx } from 'boardgame.io';
-import { Piece, InputBoardGameState } from '../types';
+import { Piece, InputBoardGameState, Color } from '../types';
 import GamePiece from '../components/GamePiece';
+import { RED } from '../config';
+
+export const colorToString = (color: Color) => {
+  return color === RED ? 'red' : 'blue';
+};
 
 export const getPieceFromId = (pieces: Piece[], pieceID: string) =>
   pieces.find((piece) => piece.id === pieceID);

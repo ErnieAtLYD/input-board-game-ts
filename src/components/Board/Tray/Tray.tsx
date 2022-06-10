@@ -1,15 +1,20 @@
-import { Color } from '../../../types';
-import { CAPTURED, RED } from '../../../config';
 import styled from 'styled-components';
+import { Color } from '../../../types';
+import {
+  BOARD_BORDER_WIDTH,
+  CAPTURED,
+  TRAY_BGCOLOR,
+  TRAY_INSET_COLOR,
+} from '../../../config';
 import { useBoardContext } from '../../../context';
-import { renderPieceById } from '../../../game/utils';
+import { colorToString, renderPieceById } from '../../../game/utils';
 
 export const StyledTray = styled.div`
-  border: 8px inset #aaa;
-  background-color: #333;
+  border: ${BOARD_BORDER_WIDTH}px inset ${TRAY_INSET_COLOR};
+  background-color: ${TRAY_BGCOLOR};
   position: relative;
-  height: 378px;
   overflow: hidden;
+  height: 320px; // must have specific height to allow overflow: hidden
   margin: 6px;
 
   display: flex;
@@ -22,7 +27,6 @@ interface TrayProps {
 }
 export const Tray = ({ color }: TrayProps) => {
   const { G, ctx } = useBoardContext();
-  const strColor = color === RED ? `red` : `blue`;
   const getCapturedPieces = (color: Color) => {
     const pieces = G.pieces.filter(
       (piece) => piece.color === color && piece.currentPos === CAPTURED
@@ -33,7 +37,9 @@ export const Tray = ({ color }: TrayProps) => {
   };
 
   return (
-    <StyledTray className={`board__captured board__captured--${strColor}`}>
+    <StyledTray
+      className={`board__captured board__captured--${colorToString(color)}`}
+    >
       {getCapturedPieces(color)}
     </StyledTray>
   );

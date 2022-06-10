@@ -1,27 +1,34 @@
-import { RED, RACK } from '../../../config';
+import styled from 'styled-components';
+import {
+  RACK,
+  BOARD_BORDER_WIDTH,
+  BOARD_GRID_BGCOLOR,
+  RACK_INSET_COLOR,
+} from '../../../config';
 import { useBoardContext } from '../../../context';
 import { Color } from '../../../types';
+import { colorToString } from '../../../game/utils';
 import GamePiece from '../../GamePiece';
-import styled from 'styled-components';
 
 const RackContainer = styled.div`
   display: flex;
   justify-content: center;
-  border: 8px inset #ccc;
-  margin: 5px;
-  padding: 4px 0;
-  background-color: #999;
+  align-items: center;
+  border: ${BOARD_BORDER_WIDTH}px inset ${RACK_INSET_COLOR};
+  margin: ${BOARD_BORDER_WIDTH}px;
+  padding: 6px;
+  background-color: ${BOARD_GRID_BGCOLOR};
 `;
 
 interface RackProps {
   color: Color;
 }
 const Rack = ({ color }: RackProps) => {
-  // const { G, ctx, moves } = useBoardContext();
   const { G, ctx } = useBoardContext();
-  const strColor = color === RED ? `red` : `blue`;
   return (
-    <RackContainer className={`board__rack board__rack--${strColor}`}>
+    <RackContainer
+      className={`board__rack board__rack--${colorToString(color)}`}
+    >
       {G.pieces
         .filter((piece) => piece.color === color && piece.currentPos === RACK)
         .map((piece) => (

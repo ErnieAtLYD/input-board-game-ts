@@ -30,8 +30,9 @@ const GamePiece = (props: GamePieceProps) => {
     props.color === ctx.currentPlayer && props.canMove && setSelected;
 
   const variants = {
-    hover: { scale: canHighlight ? 1.05 : 1 },
+    hover: { scale: canHighlight ? 1.1 : 1 },
     tap: {
+      zIndex: 2,
       scale: canHighlight && !props.atLastPosition ? [1, 2, 1] : 1,
       transition: { ease: [0.075, 0.82, 0.165, 1], duration: 0.45 },
     },
@@ -55,16 +56,16 @@ const GamePiece = (props: GamePieceProps) => {
     >
       <Inner>
         <Face color={props.color}>
-          <TileSVG fill={props.color} viewBox="0 0 242 322">
+          <TileSVG fill={props.color} viewBox='0 0 242 322'>
             <>
               <defs>
                 <pattern
-                  id="grid"
-                  width="80"
-                  height="80"
-                  patternUnits="userSpaceOnUse"
+                  id='grid'
+                  width='80'
+                  height='80'
+                  patternUnits='userSpaceOnUse'
                 >
-                  <SVGPath d="M 80 0 L 0 0 0 80" />
+                  <SVGPath d='M 80 0 L 0 0 0 80' />
                 </pattern>
               </defs>
               <SVGRect />

@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import { RED } from '../../../config';
+import { BOARD_BORDER_WIDTH, RED } from '../../../config';
 import { Color } from '../../../types';
 
 export const GridSquareStyle = styled.div<{
   dot?: Color | undefined;
 }>`
-  border: 8px inset #aaa;
+  border: ${BOARD_BORDER_WIDTH}px inset #aaa;
   margin: 6px;
-  padding: 3px 0 0 3px;
   position: relative;
   display: flex;
   align-items: center;

@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import { Color } from '../../../types';
 
 export const Pane = styled.div`
-  align-items: center;
-  display: flex;
+  /* align-items: center; */
+  /* display: flex; */
   color: #fff;
-  flex: 1;
+  /* flex: 1; */
 `;
 
 export const Panel = styled.div<{ player: Color }>`
@@ -23,11 +23,10 @@ export const Panel = styled.div<{ player: Color }>`
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   border: 1px solid rgba(168, 163, 209, 0.3);
-  width: 100%;
 `;
 
 export const Avatar = styled.img`
-  width: 150px;
+  width: 100px;
   margin-top: -160px;
   filter: drop-shadow(0px 4px 4px rgb(0 0 0 / 0.4));
 `;

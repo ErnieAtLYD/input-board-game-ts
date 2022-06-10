@@ -1,10 +1,14 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion/dist/framer-motion';
-import { ENTERING_SPACE, RED, HIGHLIGHT_COLOR } from '../../../config';
+import {
+  ENTERING_SPACE,
+  HIGHLIGHT_COLOR,
+  BOARD_GRID_BGCOLOR,
+} from '../../../config';
 import { Color } from '../../../types';
 import { GridSquareStyle } from '../GridSquare/styles';
 import { useBoardContext, usePreviewContext } from '../../../context';
-import { renderPieceById } from '../../../game/utils';
+import { colorToString, renderPieceById } from '../../../game/utils';
 
 export const ESWrapper = styled(GridSquareStyle)<{}>``;
 
@@ -14,7 +18,7 @@ interface EnteringSpaceProps {
 }
 
 const gridSquareVariants = {
-  initial: { backgroundColor: '#999' },
+  initial: { backgroundColor: BOARD_GRID_BGCOLOR },
   highlighted: { backgroundColor: HIGHLIGHT_COLOR },
 };
 
@@ -22,7 +26,6 @@ const EnteringSpace = ({ color }: EnteringSpaceProps) => {
   const { G, ctx } = useBoardContext();
   const { selected } = usePreviewContext();
 
-  const strColor = color === RED ? `red` : `blue`;
   return (
     <ESWrapper
       as={motion.div}
@@ -34,7 +37,7 @@ const EnteringSpace = ({ color }: EnteringSpaceProps) => {
           ? 'highlighted'
           : 'initial'
       }
-      className={`board__es--${strColor}`}
+      className={`board__es--${colorToString(color)}`}
     >
       {G.enteringSpace[color].map((id) => renderPieceById(G, ctx, id))}
     </ESWrapper>

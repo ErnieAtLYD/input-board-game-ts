@@ -35,8 +35,6 @@ export const movePiece: any = (
     G.cells[piece.currentPos] = null;
   }
 
-  blockAndUnblockPieces(piece, G);
-
   // Did we capture an opponent's piece?
   if (G.cells[piece.nextMove]) {
     const opponentPiece = G.pieces.find(
@@ -44,6 +42,8 @@ export const movePiece: any = (
     );
     opponentPiece && (opponentPiece.currentPos = CAPTURED);
   }
+
+  blockAndUnblockPieces(piece, G);
 
   piece.currentPos = piece.nextMove;
   piece.nextMove = getNextMove(piece) as PossiblePositions;

@@ -3,17 +3,23 @@ export const BLUE = '1';
 export const STATS = {
   [RED]: {
     name: 'Red',
-    hexColor: 'ff0000',
   },
   [BLUE]: {
     name: 'Blue',
-    hexColor: '0000ff',
   },
 };
 export const DEBUG = false;
+// export const DEBUG = true;
+
+export const BOARD_BORDER_WIDTH = 6;
+export const BOARD_GRID_BGCOLOR = '#999';
+export const GAMEPIECE_BGCOLOR = '#ddd';
+export const TRAY_BGCOLOR = '#333';
+export const TRAY_INSET_COLOR = '#aaa';
+export const RACK_INSET_COLOR = '#ccc';
 
 // note: this MUST be hex for framer motion to animate
-export const HIGHLIGHT_COLOR = '#FF69B4';
+export const HIGHLIGHT_COLOR = '#ff69b4';
 
 export const ENTERING_SPACE = 100;
 export const RACK = 200;
@@ -38,10 +44,10 @@ export const PIECES = [
 
 // export const AI_BOT_ITERATIONS = 750;
 // export const AI_BOT_PLAYOUT_DEPTH = 50;
-export const AI_BOT_ITERATIONS = 425;
-export const AI_BOT_PLAYOUT_DEPTH = 25;
-// export const AI_BOT_ITERATIONS = 1;
-// export const AI_BOT_PLAYOUT_DEPTH = 1;
+// export const AI_BOT_ITERATIONS = 425;
+// export const AI_BOT_PLAYOUT_DEPTH = 25;
+export const AI_BOT_ITERATIONS = 1;
+export const AI_BOT_PLAYOUT_DEPTH = 1;
 
 // Delay AI stepping  to allow React to render animation
 // before the main thread gets blocked by AI iterations

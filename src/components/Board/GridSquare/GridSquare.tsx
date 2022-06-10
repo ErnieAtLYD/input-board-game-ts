@@ -1,5 +1,10 @@
 import { motion } from 'framer-motion/dist/framer-motion';
-import { BLUE, HIGHLIGHT_COLOR, RED } from '../../../config';
+import {
+  BLUE,
+  BOARD_GRID_BGCOLOR,
+  HIGHLIGHT_COLOR,
+  RED,
+} from '../../../config';
 import { useBoardContext, usePreviewContext } from '../../../context';
 import { renderPieceById } from '../../../game/utils';
 import { Color } from '../../../types';
@@ -10,7 +15,6 @@ interface GridSquareProps {
   pos: number;
 }
 export const GridSquare = ({ className, pos }: GridSquareProps) => {
-  // const { G, ctx, moves } = useBoardContext();
   let dot;
   const { G, ctx } = useBoardContext();
   const { selected } = usePreviewContext();
@@ -25,7 +29,7 @@ export const GridSquare = ({ className, pos }: GridSquareProps) => {
   }
 
   const gridSquareVariants = {
-    initial: { backgroundColor: '#999' },
+    initial: { backgroundColor: BOARD_GRID_BGCOLOR },
     highlighted: { backgroundColor: HIGHLIGHT_COLOR },
   };
 
