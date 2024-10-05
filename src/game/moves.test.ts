@@ -7,6 +7,10 @@ import { movePiece } from './moves';
 describe('general movement', () => {
   let G: InputBoardGameState;
   let R0: Piece, R1: Piece, R2: Piece, R3: Piece, B3: Piece;
+  afterEach(() => {
+    jest.clearAllTimers();
+  });
+
   beforeEach(() => {
     G = JSON.parse(JSON.stringify(_G)); // deep copy
     R0 = JSON.parse(JSON.stringify(_R0));
