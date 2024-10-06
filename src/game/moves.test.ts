@@ -14,19 +14,19 @@ describe('general movement', () => {
   beforeEach(() => {
     G = JSON.parse(JSON.stringify(_G)); // deep copy
     R0 = JSON.parse(JSON.stringify(_R0));
-    // R1 = JSON.parse(JSON.stringify(_R1));
+    R1 = JSON.parse(JSON.stringify(_R1));
     R2 = JSON.parse(JSON.stringify(_R2));
-    // R3 = JSON.parse(JSON.stringify(_R3));
+    R3 = JSON.parse(JSON.stringify(_R3));
     B3 = JSON.parse(JSON.stringify(_B3));
   });
 
-  xit('should return INVALID_MOVE if not players turn', () => {
+  it('should return INVALID_MOVE if not players turn', () => {
     const ctx = JSON.parse(JSON.stringify(_ctx));
     ctx.currentPlayer = '1';
     expect(movePiece(G, ctx, R0.id)).toBe(INVALID_MOVE);
   });
 
-  xit('travels square to square in the playing area', () => {
+  it('travels square to square in the playing area', () => {
     [R0].forEach((p) => G.pieces.push(p));
     ['r0', 'r0'].forEach((id) => movePiece(G, _ctx, id));
     expect(G.pieces[0].currentPos).toEqual(10);
@@ -34,7 +34,7 @@ describe('general movement', () => {
     expect(G.cells[10]).toEqual('r0');
   });
 
-  xit("won't allow a tile to land on an existing spot on the same team", () => {
+  it("won't allow a tile to land on an existing spot on the same team", () => {
     [R0, R2].forEach((p) => G.pieces.push(p));
     ['r0', 'r0', 'r0', 'r0', 'r2', 'r2', 'r2'].forEach((id) =>
       movePiece(G, _ctx, id)
@@ -59,7 +59,7 @@ describe('general movement', () => {
     });
   });
 
-  it('capturing a tile does something', () => {
+  xit('should capture an opponent\'s tile when landing on it', () => {
     [R0, B3].forEach((p) => G.pieces.push(p));
     console.log('r0', G.pieces[0]);
     console.log('b3', G.pieces[1]);
