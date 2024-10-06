@@ -7,7 +7,12 @@ import { movePiece } from './moves';
 describe('general movement', () => {
   let G: InputBoardGameState;
   let R0: Piece, R1: Piece, R2: Piece, R3: Piece, B3: Piece;
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
   afterEach(() => {
+    jest.runOnlyPendingTimers();
     jest.clearAllTimers();
   });
 

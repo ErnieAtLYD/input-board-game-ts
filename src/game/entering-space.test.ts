@@ -4,7 +4,12 @@ import { InputBoardGameState, Piece } from '../types';
 import { _G, _ctx, _R0, _R1, _R2, _R3 } from '../config/testing';
 
 xdescribe('the queue', () => {
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
   afterEach(() => {
+    jest.runOnlyPendingTimers();
     jest.clearAllTimers();
   });
 
