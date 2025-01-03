@@ -94,7 +94,7 @@ export const toEnteringSpace: LongFormMove = {
     const space = state.enteringSpace[piece.color];
     if (space.length === MAX_TILES_IN_QUEUE) {
 
-    if (isInPlayingArea(piece.current_pos)) state.cells[piece.current_pos] = null;
+    if (isInPlayingArea(piece.current_pos)) {
 
     state.pieces
       .filter((p) => p.id !== piece.id)
