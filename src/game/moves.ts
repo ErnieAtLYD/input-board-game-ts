@@ -92,7 +92,7 @@ export const toEnteringSpace: LongFormMove = {
       return INVALID_MOVE;
     }
     const space = state.enteringSpace[piece.color];
-    if (space.length === MAX_TILES_IN_QUEUE) return INVALID_MOVE;
+    if (space.length === MAX_TILES_IN_QUEUE) {
 
     if (isInPlayingArea(piece.current_pos)) state.cells[piece.current_pos] = null;
 
