@@ -73,7 +73,7 @@ export const toRack: LongFormMove = {
     ) {
       return INVALID_MOVE;
     }
-    if (isInPlayingArea(piece.current_pos)) state.cells[piece.current_pos] = null;
+    if (isInPlayingArea(piece.current_pos)) {
     piece.current_pos = RACK;
     piece.nextMove = ENTERING_SPACE;
   },
