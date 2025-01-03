@@ -1,4 +1,4 @@
-import { Game } from 'boardgame.io';
+import { Game, FnContext } from 'boardgame.io';
 import { RED, BLUE, PIECES, RACK, ENTERING_SPACE, CAPTURED } from '../config';
 import { InputBoardGameState } from '../types';
 import { movePiece, toEnteringSpace, toRack } from './moves';
@@ -10,10 +10,10 @@ export const InputBoardGame: Game<InputBoardGameState> = {
     enteringSpace: { [RED]: [], [BLUE]: [] },
     pieces: PIECES.map((piece) => ({
       id: piece.id,
-      currentPos: RACK,
+      current_pos: RACK,
       moves: [ENTERING_SPACE, ...piece.moves, RACK],
       color: piece.id[0] === 'r' ? RED : BLUE,
-      canMove: true,
+      can_move: true,
       nextMove: ENTERING_SPACE,
     })),
   }),
@@ -25,18 +25,21 @@ export const InputBoardGame: Game<InputBoardGameState> = {
 
   moves: { movePiece, toEnteringSpace, toRack },
 
-  endIf: (G, ctx) => {
+  endIf: (context: FnContext<InputBoardGameState, Record<string, unknown>>): { winner: string } | undefined => {
+    const { G } = context;
     let redPieces = G.pieces.filter(
-      (piece) => piece.color === RED && piece.currentPos !== CAPTURED
+      (piece) => piece.color === RED && piece.current_pos !== CAPTURED
     );
     let bluePieces = G.pieces.filter(
-      (piece) => piece.color === BLUE && piece.currentPos !== CAPTURED
+      (piece) => piece.color === BLUE && piece.current_pos !== CAPTURED
     );
     if (redPieces.length === 0) {
       return { winner: BLUE };
-    } else if (bluePieces.length === 0) {
+    }
+    if (bluePieces.length === 0) {
       return { winner: RED };
     }
+    return undefined;
   },
 
   ai: { enumerate },

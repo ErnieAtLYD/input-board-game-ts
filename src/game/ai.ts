@@ -17,12 +17,12 @@ export const enumerate = (G: InputBoardGameState, ctx: Ctx) => {
   const filteredPieces = G.pieces.filter(
     (piece) =>
       piece.color === ctx.currentPlayer &&
-      piece.currentPos !== CAPTURED &&
-      piece.canMove
+      piece.current_pos !== CAPTURED &&
+      piece.can_move
   );
 
   for (let piece of filteredPieces) {
-    const { id, currentPos, nextMove } = piece;
+    const { id, current_pos, nextMove } = piece;
     const _id = id as PossiblePieceIDs;
 
     nextCell = G.cells[nextMove];
@@ -31,10 +31,10 @@ export const enumerate = (G: InputBoardGameState, ctx: Ctx) => {
       moves.push({ move: 'toRack', args: [_id] });
       if (enteringSpace.length >= MAX_TILES_IN_QUEUE) continue;
       moves.push({ move: 'toEnteringSpace', args: [_id] });
-    } else if (currentPos === RACK) {
+    } else if (current_pos === RACK) {
       if (enteringSpace.length >= MAX_TILES_IN_QUEUE) continue;
       moves.push({ move: 'movePiece', args: [_id] });
-    } else if (currentPos === ENTERING_SPACE) {
+    } else if (current_pos === ENTERING_SPACE) {
       if (enteringSpace[enteringSpace.length - 1] !== id) continue;
       if (
         nextCell !== null &&

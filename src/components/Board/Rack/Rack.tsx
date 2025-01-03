@@ -30,7 +30,7 @@ const Rack = ({ color }: RackProps) => {
       className={`board__rack board__rack--${colorToString(color)}`}
     >
       {G.pieces
-        .filter((piece) => piece.color === color && piece.currentPos === RACK)
+        .filter((piece) => piece.color === color && piece.current_pos === RACK)
         .map((piece) => (
           <GamePiece
             key={piece.id}

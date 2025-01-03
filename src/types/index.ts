@@ -1,4 +1,5 @@
 import { RED, BLUE, RACK, ENTERING_SPACE, CAPTURED } from '../config';
+import { Ctx } from 'boardgame.io';
 
 export type Color = typeof RED | typeof BLUE;
 
@@ -10,10 +11,10 @@ export interface InputBoardGameState {
 
 export type Piece = {
   id: string;
-  currentPos: PossiblePositions;
+  current_pos: PossiblePositions;
   moves: number[];
   color: Color;
-  canMove: boolean;
+  can_move: boolean;
   nextMove: PossiblePositions;
 };
 
@@ -52,3 +53,18 @@ export interface AIMoves {
   move: 'toRack' | 'toEnteringSpace' | 'movePiece';
   args: PossiblePieceIDs[];
 }
+
+export type GameState = {
+  G: InputBoardGameState;
+  ctx: Ctx;
+  events: any;
+  log: any;
+  random: any;
+  playerID: string;
+};
+
+export type GameMoves = {
+  movePiece: (pieceId: string) => void;
+  toRack: (pieceId: string) => void;
+  toEnteringSpace: (pieceId: string) => void;
+};

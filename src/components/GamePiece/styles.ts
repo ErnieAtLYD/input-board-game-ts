@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { CAPTURED, RED, GAMEPIECE_BGCOLOR } from '../../config';
 import { ESWrapper } from '../Board/EnteringSpace/EnteringSpace';
 import { StyledTray } from '../Board/Tray';
+import { PossiblePositions } from '../../types';
 
 const hasShadow = `
   box-shadow: rgba(6, 24, 44, 0.4) 0 0 0 2px,
@@ -9,10 +10,12 @@ const hasShadow = `
     rgba(255, 255, 255, 0.08) 0 1px 0 inset;
 `;
 
-export const GamePieceContainer = styled.div<{
-  canMove?: boolean;
-  currentPos: number;
-}>`
+interface GamePieceContainerProps {
+  can_move: boolean;
+  current_pos: PossiblePositions;
+}
+
+export const GamePieceContainer = styled.div<GamePieceContainerProps>`
   z-index: 1;
   background-color: ${GAMEPIECE_BGCOLOR};
   position: relative;
@@ -21,12 +24,12 @@ export const GamePieceContainer = styled.div<{
   margin: 0 2px;
   border-radius: 12px;
   border-style: outset;
-  cursor: ${({ canMove }) => (canMove ? 'pointer' : 'default')};
-  ${({ canMove }) => (canMove ? hasShadow : '')}
+  cursor: ${({ can_move }) => (can_move ? 'pointer' : 'default')};
+  ${({ can_move }) => (can_move ? hasShadow : '')}
 
   &::after {
-    display: ${({ canMove, currentPos }) =>
-      canMove && currentPos !== CAPTURED ? 'none' : 'block'};
+    display: ${({ can_move, current_pos }) =>
+      can_move && current_pos !== CAPTURED ? 'none' : 'block'};
     content: '';
     position: absolute;
     inset: 0;
@@ -57,7 +60,7 @@ export const GamePieceContainer = styled.div<{
 
   ${ESWrapper} & {
     position: absolute;
-    ${({ canMove }) => (canMove ? hasShadow : '')}
+    ${({ can_move }) => (can_move ? hasShadow : '')}
   }
 
   ${ESWrapper} &:nth-child(2) {

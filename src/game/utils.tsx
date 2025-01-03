@@ -18,8 +18,8 @@ export const isPlayersTurn = (playerID: string, ctx: Ctx) => {
 };
 
 export const getNextMove = (piece: Piece): number => {
-  const { currentPos, moves } = piece;
-  return moves[(moves.indexOf(currentPos) + 1) % moves.length];
+  const { current_pos, moves } = piece;
+  return moves[(moves.indexOf(current_pos) + 1) % moves.length];
 };
 
 // Given a string ID, render out the GamePiece component

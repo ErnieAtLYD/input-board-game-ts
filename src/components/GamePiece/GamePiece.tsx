@@ -12,14 +12,16 @@ import {
 } from './styles';
 import { drawCircle, fillLines } from './helpers';
 
+const MotionGamePieceContainer = motion(GamePieceContainer);
+
 interface GamePieceProps {
   id: string;
-  color: Color;
-  canMove: boolean;
+  current_pos: PossiblePositions;
   moves: number[];
+  color: Color;
+  can_move: boolean;
   nextMove: PossiblePositions;
   atLastPosition: boolean;
-  currentPos: PossiblePositions;
 }
 
 const GamePiece = (props: GamePieceProps) => {
@@ -27,7 +29,7 @@ const GamePiece = (props: GamePieceProps) => {
   const { setSelected } = usePreviewContext();
 
   const canHighlight =
-    props.color === ctx.currentPlayer && props.canMove && setSelected;
+    props.color === ctx.currentPlayer && props.can_move && setSelected;
 
   const variants = {
     hover: { scale: canHighlight ? 1.1 : 1 },
@@ -39,12 +41,11 @@ const GamePiece = (props: GamePieceProps) => {
   };
 
   return (
-    <GamePieceContainer
-      as={motion.div}
+    <MotionGamePieceContainer
+      can_move={props.can_move}
+      current_pos={props.current_pos}
       layoutId={`piece_${props.id}`}
       variants={variants}
-      canMove={props.canMove}
-      currentPos={props.currentPos}
       onClick={() => {
         moves.movePiece(props.id);
         setSelected && setSelected(null);
@@ -101,7 +102,7 @@ const GamePiece = (props: GamePieceProps) => {
           </button>
         </Face>
       </Inner>
-    </GamePieceContainer>
+    </MotionGamePieceContainer>
   );
 };
 

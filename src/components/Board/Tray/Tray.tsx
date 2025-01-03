@@ -29,7 +29,7 @@ export const Tray = ({ color }: TrayProps) => {
   const { G, ctx } = useBoardContext();
   const getCapturedPieces = (color: Color) => {
     const pieces = G.pieces.filter(
-      (piece) => piece.color === color && piece.currentPos === CAPTURED
+      (piece) => piece.color === color && piece.current_pos === CAPTURED
     );
     return !pieces
       ? null

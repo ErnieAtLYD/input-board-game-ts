@@ -50,7 +50,7 @@ const PlayerSection = ({ player }: PlayerSectionProps) => {
           Captured:
           {
             G.pieces.filter(
-              (p) => p.color === opposingPlayer && p.currentPos === CAPTURED
+              (p) => p.color === opposingPlayer && p.current_pos === CAPTURED
             ).length
           }{' '}
           of 6

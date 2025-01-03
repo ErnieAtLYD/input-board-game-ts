@@ -8,10 +8,10 @@ import { DEBUG } from './config';
 
 const InputSingleAIClient = Client({
   game: InputBoardGame,
-  board: Board,
+  board: Board as any,
   multiplayer: Local(),
   debug: DEBUG,
-});
+}) as any;
 
 const App = () => (
   <>
