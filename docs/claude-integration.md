@@ -64,7 +64,6 @@ Claude Code can execute these project-specific commands:
 - **Documentation**: Update comments and documentation files
 
 ### Limitations
-- **No File System Changes**: Cannot install new dependencies or modify package.json without confirmation
 - **Testing Environment**: May need guidance on specific test scenarios
 - **Game Rules**: Requires clear explanation of Input board game rules for complex features
 - **Boardgame.io Specific**: May need context on advanced boardgame.io patterns
