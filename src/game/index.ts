@@ -25,7 +25,7 @@ export const InputBoardGame: Game<InputBoardGameState> = {
 
   moves: { movePiece, toEnteringSpace, toRack },
 
-  endIf: (G, ctx) => {
+  endIf: ({ G }) => {
     let redPieces = G.pieces.filter(
       (piece) => piece.color === RED && piece.currentPos !== CAPTURED
     );
