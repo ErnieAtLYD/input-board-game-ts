@@ -10,11 +10,11 @@ import {
   isPlayersTurn,
 } from './utils';
 
-// to make the tests work Move<InputBoardGameState> should be any
-export const movePiece: any = (
-  { G, ctx }: { G: InputBoardGameState; ctx: Ctx; playerID: string },
+export const movePiece: Move<InputBoardGameState> = (
+  context,
   pieceId: string
 ): void | typeof INVALID_MOVE => {
+  const { G, ctx } = context;
   const piece = getPieceFromId(G.pieces, pieceId);
   if (
     !piece ||

@@ -1,3 +1,4 @@
+import React from 'react';
 import { Ctx } from 'boardgame.io';
 import { InputBoardGameState } from '../types';
 import GamePiece from '../components/GamePiece';
