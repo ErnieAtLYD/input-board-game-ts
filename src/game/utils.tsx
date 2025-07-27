@@ -26,6 +26,7 @@ export const renderPieceById = (
       key={piece.id}
       {...piece}
       atLastPosition={
+        piece.moves.length >= 2 &&
         G.cells[piece.moves[piece.moves.length - 2]] === piece.id &&
         ctx.currentPlayer === piece.color
       }
