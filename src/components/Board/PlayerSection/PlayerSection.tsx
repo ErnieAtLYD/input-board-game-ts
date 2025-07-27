@@ -3,13 +3,13 @@ import { useBoardContext } from '../../../context';
 import { Pane, Panel, Avatar } from './styles';
 import { Color } from '../../../types';
 import { RED, BLUE, STATS, CAPTURED } from '../../../config';
-import { motion } from 'framer-motion/dist/framer-motion';
+import { motion } from 'framer-motion';
 
 interface PlayerSectionProps {
   player: Color;
 }
 const PlayerSection = ({ player }: PlayerSectionProps) => {
-  const [seed, setSeed] = useState();
+  const [seed] = useState();
   const { G, ctx } = useBoardContext();
 
   useEffect(() => {}, []);
