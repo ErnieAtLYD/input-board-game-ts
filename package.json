@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "boardgame.io": "^0.49.12",
+    "boardgame.io": "^0.50.2",
     "esm": "^3.2.25",
     "framer-motion": "^11.11.1",
     "react": "^18.3.1",
