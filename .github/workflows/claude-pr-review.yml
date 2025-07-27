@@ -1,42 +1,46 @@
-name: Claude PR Review
+name: Claude PR Assistant
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+  issues:
+    types: [opened, assigned]
+  pull_request_review:
+    types: [submitted]
 
 jobs:
-  claude-review:
+  claude-code-action:
+    if: |
+      (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review_comment' && contains(github.event.comment.body, '@claude')) ||
+      (github.event_name == 'pull_request_review' && contains(github.event.review.body, '@claude')) ||
+      (github.event_name == 'issues' && contains(github.event.issue.body, '@claude'))
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write
-      issues: write
-    
+      pull-requests: read
+      issues: read
+      id-token: write
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 1
 
-      - name: Claude Code Review
-        uses: anthropics/claude-code-action@v1
+      - name: Run Claude PR Action
+        uses: anthropics/claude-code-action@beta
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
-          prompt: |
-            Please review this pull request focusing on:
-            
-            1. **Code Quality**: Check for bugs, logical errors, and edge cases
-            2. **TypeScript Best Practices**: Ensure proper typing and type safety
-            3. **React/boardgame.io Patterns**: Verify correct usage of React hooks and boardgame.io APIs
-            4. **Game Logic**: Validate game rules and state management
-            5. **Performance**: Look for potential performance issues
-            6. **Testing**: Suggest test cases if needed
-            
-            For this Input board game project:
-            - Follow existing code patterns and conventions
-            - Ensure game pieces follow their defined movement tracks
-            - Validate that AI logic improvements don't break game balance
-            - Check that styled-components usage is consistent
-            
-            Provide specific, actionable feedback with line numbers when possible.
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          timeout_minutes: "60"
+          # mode: tag  # Default: responds to @claude mentions
+          # Optional: Restrict network access to specific domains only
+          # experimental_allowed_domains: |
+          #   .anthropic.com
+          #   .github.com
+          #   api.github.com
+          #   .githubusercontent.com
+          #   bun.sh
+          #   registry.npmjs.org
+          #   .blob.core.windows.net
