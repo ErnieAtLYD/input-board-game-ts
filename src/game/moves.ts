@@ -1,4 +1,4 @@
-import { Ctx, Move } from 'boardgame.io';
+import { Move } from 'boardgame.io';
 import { INVALID_MOVE } from 'boardgame.io/core';
 import { InputBoardGameState, Piece, PossiblePositions } from '../types';
 import { CAPTURED, ENTERING_SPACE, MAX_TILES_IN_QUEUE, RACK } from '../config';
