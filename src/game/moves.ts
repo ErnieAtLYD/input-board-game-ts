@@ -12,8 +12,7 @@ import {
 
 // to make the tests work Move<InputBoardGameState> should be any
 export const movePiece: any = (
-  G: InputBoardGameState,
-  ctx: Ctx,
+  { G, ctx }: { G: InputBoardGameState; ctx: Ctx; playerID: string },
   pieceId: string
 ): void | typeof INVALID_MOVE => {
   const piece = getPieceFromId(G.pieces, pieceId);
@@ -63,10 +62,10 @@ export const movePiece: any = (
 };
 
 export const toRack: Move<InputBoardGameState> = (
-  G: InputBoardGameState,
-  ctx: Ctx,
+  context,
   pieceId: string
 ): void | typeof INVALID_MOVE => {
+  const { G, ctx } = context;
   const piece = getPieceFromId(G.pieces, pieceId);
   if (
     !piece ||
@@ -82,10 +81,10 @@ export const toRack: Move<InputBoardGameState> = (
 };
 
 export const toEnteringSpace: Move<InputBoardGameState> = (
-  G: InputBoardGameState,
-  ctx: Ctx,
+  context,
   pieceId: string
 ): void | typeof INVALID_MOVE => {
+  const { G, ctx } = context;
   const piece = getPieceFromId(G.pieces, pieceId);
   if (
     !piece ||

@@ -11,7 +11,6 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.1.0",
-    "typescript": "^5.2.2",
     "web-vitals": "^2.1.0"
   },
   "engines": {
@@ -42,6 +41,7 @@
     ]
   },
   "devDependencies": {
+    "typescript": "^4.9.5",
     "@testing-library/jest-dom": "^5.17.0",
     "@types/esm": "^3.2.1",
     "@types/jest": "^29.5.0",
@@ -50,5 +50,17 @@
     "@types/react-dom": "^18.2.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/styled-components": "^5.1.26"
+  },
+  "overrides": {
+    "cookie": "^0.7.0",
+    "ws": "^8.17.1",
+    "socket.io-parser": "^4.2.3",
+    "nth-check": "^2.0.1",
+    "postcss": "^8.4.31",
+    "webpack-dev-server": "^5.2.1",
+    "@koa/cors": "^5.0.0",
+    "engine.io": "^6.2.1",
+    "socket.io": "^4.6.2",
+    "svelte": "^4.2.19"
   }
 }
