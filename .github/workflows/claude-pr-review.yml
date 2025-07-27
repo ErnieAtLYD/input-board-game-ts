@@ -1,0 +1,42 @@
+name: Claude PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Claude Code Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          anthropic-api-key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Please review this pull request focusing on:
+            
+            1. **Code Quality**: Check for bugs, logical errors, and edge cases
+            2. **TypeScript Best Practices**: Ensure proper typing and type safety
+            3. **React/boardgame.io Patterns**: Verify correct usage of React hooks and boardgame.io APIs
+            4. **Game Logic**: Validate game rules and state management
+            5. **Performance**: Look for potential performance issues
+            6. **Testing**: Suggest test cases if needed
+            
+            For this Input board game project:
+            - Follow existing code patterns and conventions
+            - Ensure game pieces follow their defined movement tracks
+            - Validate that AI logic improvements don't break game balance
+            - Check that styled-components usage is consistent
+            
+            Provide specific, actionable feedback with line numbers when possible.
