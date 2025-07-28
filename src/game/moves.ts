@@ -1,15 +1,21 @@
-import { Move } from 'boardgame.io';
-import { INVALID_MOVE } from 'boardgame.io/core';
-import { InputBoardGameState, Piece, PossiblePositions } from '../types';
-import { CAPTURED, ENTERING_SPACE, MAX_TILES_IN_QUEUE, RACK } from '../config';
-import { popPieceFromStack, pushPieceToStack } from './entering-space';
+import { Move } from "boardgame.io";
+import { INVALID_MOVE } from "boardgame.io/core";
+import { InputBoardGameState, Piece, PossiblePositions } from "../types";
+import { CAPTURED, ENTERING_SPACE, MAX_TILES_IN_QUEUE, RACK } from "../config";
+import { popPieceFromStack, pushPieceToStack } from "./entering-space";
 import {
   getNextMove,
   getPieceFromId,
   isInPlayingArea,
   isPlayersTurn,
-} from './utils';
+} from "./utils";
 
+/**
+ * Moves a piece from its current position to its next move.
+ * @param context - The context of the game.
+ * @param pieceId - The id of the piece to move.
+ * @returns INVALID_MOVE if the move is invalid, otherwise undefined.
+ */
 export const movePiece: Move<InputBoardGameState> = (
   context,
   pieceId: string
@@ -20,7 +26,8 @@ export const movePiece: Move<InputBoardGameState> = (
     !piece ||
     !piece.canMove ||
     piece.color !== ctx.currentPlayer ||
-    piece.currentPos === piece.moves[piece.moves.length - 2] // End of cycle, should call toRack/toEnteringSpace
+    (piece.moves.length >= 2 &&
+      piece.currentPos === piece.moves[piece.moves.length - 2]) // End of cycle, should call toRack/toEnteringSpace
   ) {
     return INVALID_MOVE;
   }
@@ -61,6 +68,12 @@ export const movePiece: Move<InputBoardGameState> = (
   }
 };
 
+/**
+ * Moves a piece from the playing area to the rack.
+ * @param context - The context of the game.
+ * @param pieceId - The id of the piece to move.
+ * @returns INVALID_MOVE if the move is invalid, otherwise undefined.
+ */
 export const toRack: Move<InputBoardGameState> = (
   context,
   pieceId: string
@@ -80,6 +93,12 @@ export const toRack: Move<InputBoardGameState> = (
   piece.nextMove = ENTERING_SPACE;
 };
 
+/**
+ * Moves a piece from the rack to the entering space.
+ * @param context - The context of the game.
+ * @param pieceId - The id of the piece to move.
+ * @returns INVALID_MOVE if the move is invalid, otherwise undefined.
+ */
 export const toEnteringSpace: Move<InputBoardGameState> = (
   context,
   pieceId: string
@@ -112,6 +131,11 @@ export const toEnteringSpace: Move<InputBoardGameState> = (
   piece.nextMove = piece.moves[1] as PossiblePositions;
 };
 
+/**
+ * Blocks and unblocks pieces based on the current piece's position.
+ * @param piece - The piece to block and unblock.
+ * @param G - The game state.
+ */
 function blockAndUnblockPieces(piece: Piece, G: InputBoardGameState) {
   const otherPieces = G.pieces
     .filter((p) => p.id !== piece.id)
