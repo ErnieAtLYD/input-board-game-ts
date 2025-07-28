@@ -1,12 +1,23 @@
-import { INVALID_MOVE } from 'boardgame.io/core';
-import { CAPTURED, ENTERING_SPACE, RACK } from '../config';
-import { _ctx, _G, _R0, _R1, _R2, _R3, _B3 } from '../config/testing';
-import { InputBoardGameState, Piece } from '../types';
-import { movePiece } from './moves';
+import { INVALID_MOVE } from "boardgame.io/core";
+import { Ctx } from "boardgame.io";
+import { CAPTURED, ENTERING_SPACE } from "../config";
+import { _ctx, _G, _R0, _R2, _B3 } from "../config/testing";
+import { InputBoardGameState, Piece } from "../types";
+import { movePiece } from "./moves";
 
-describe('general movement', () => {
+// Helper to call move functions in tests
+const callMove = (
+  moveFn: any,
+  G: InputBoardGameState,
+  ctx: Ctx,
+  ...args: any[]
+) => {
+  return moveFn({ G, ctx }, ...args);
+};
+
+describe("general movement", () => {
   let G: InputBoardGameState;
-  let R0: Piece, R1: Piece, R2: Piece, R3: Piece, B3: Piece;
+  let R0: Piece, R2: Piece, B3: Piece;
   beforeEach(() => {
     jest.useFakeTimers();
   });
@@ -19,61 +30,75 @@ describe('general movement', () => {
   beforeEach(() => {
     G = JSON.parse(JSON.stringify(_G)); // deep copy
     R0 = JSON.parse(JSON.stringify(_R0));
-    R1 = JSON.parse(JSON.stringify(_R1));
     R2 = JSON.parse(JSON.stringify(_R2));
-    R3 = JSON.parse(JSON.stringify(_R3));
     B3 = JSON.parse(JSON.stringify(_B3));
   });
 
-  it('should return INVALID_MOVE if not players turn', () => {
+  it("should return INVALID_MOVE if not players turn", () => {
     const ctx = JSON.parse(JSON.stringify(_ctx));
-    ctx.currentPlayer = '1';
-    expect(movePiece(G, ctx, R0.id)).toBe(INVALID_MOVE);
+    ctx.currentPlayer = "1";
+    expect(callMove(movePiece, G, ctx, R0.id)).toBe(INVALID_MOVE);
   });
 
-  it('travels square to square in the playing area', () => {
+  it("travels square to square in the playing area", () => {
     [R0].forEach((p) => G.pieces.push(p));
-    ['r0', 'r0'].forEach((id) => movePiece(G, _ctx, id));
+    ["r0", "r0"].forEach((id) => callMove(movePiece, G, _ctx, id));
     expect(G.pieces[0].currentPos).toEqual(10);
     expect(G.pieces[0].nextMove).toEqual(6);
-    expect(G.cells[10]).toEqual('r0');
+    expect(G.cells[10]).toEqual("r0");
   });
 
   it("won't allow a tile to land on an existing spot on the same team", () => {
     [R0, R2].forEach((p) => G.pieces.push(p));
-    ['r0', 'r0', 'r0', 'r0', 'r2', 'r2', 'r2'].forEach((id) =>
-      movePiece(G, _ctx, id)
+    ["r0", "r0", "r0", "r0", "r2", "r2", "r2"].forEach((id) =>
+      callMove(movePiece, G, _ctx, id)
     );
     expect(G.pieces[1].canMove).toEqual(false);
   });
 
-  xit('allows a tile to land on an opponents tile', () => {
+  it("allows a tile to land on an opponents tile", () => {
     [R0, B3].forEach((p) => G.pieces.push(p));
-    ['r0', 'b3', 'r0', 'b3', 'r0', 'b3'].forEach((id) =>
-      movePiece(G, _ctx, id)
+    ["r0", "b3", "r0", "b3", "r0", "b3"].forEach((id) =>
+      callMove(movePiece, G, _ctx, id)
     );
     expect(G.pieces[0].canMove).toEqual(true);
   });
 
-  xit('moves a blue piece to the entering space', () => {
+  it("moves a blue piece to the entering space", () => {
+    const ctx = JSON.parse(JSON.stringify(_ctx));
+    ctx.currentPlayer = "1"; // Set to blue player
     [B3].forEach((p) => G.pieces.push(p));
-    console.log('b3', G.pieces[0]);
-    ['b3'].forEach((id) => {
-      movePiece(G, _ctx, id);
-      expect(G.pieces[0].currentPos).toEqual(ENTERING_SPACE);
+    ["b3"].forEach((id) => {
+      callMove(movePiece, G, ctx, id);
     });
+    expect(G.pieces[0].currentPos).toEqual(ENTERING_SPACE);
   });
 
-  xit('should capture an opponent\'s tile when landing on it', () => {
-    [R0, B3].forEach((p) => G.pieces.push(p));
-    console.log('r0', G.pieces[0]);
-    console.log('b3', G.pieces[1]);
-    ['r0', 'b3', 'r0', 'b3', 'r0', 'b3', 'r0'].forEach((id) => {
-      movePiece(G, _ctx, id);
-      console.log('r0', G.pieces[0].currentPos);
-      console.log('b3', G.pieces[1].currentPos);
-    });
+  it("should capture an opponent's tile when landing on it", () => {
+    // Set up R0 at position 10 and B3 at position 0 to create a capture scenario
+    const r0 = JSON.parse(JSON.stringify(R0));
+    const b3 = JSON.parse(JSON.stringify(B3));
+    
+    // Position R0 at board position 10 with next move to position 6
+    r0.currentPos = 10;
+    r0.nextMove = 6;
+    
+    // Position B3 at board position 6 (where R0 will move to capture it)
+    b3.currentPos = 6;
+    b3.nextMove = 4;
+    
+    [r0, b3].forEach((p) => G.pieces.push(p));
+    
+    // Set up the board state
+    G.cells[10] = "r0";
+    G.cells[6] = "b3";
+    
+    // Move R0 to capture B3
+    callMove(movePiece, G, _ctx, "r0");
+    
     expect(G.pieces[1].currentPos).toEqual(CAPTURED);
+    expect(G.pieces[0].currentPos).toEqual(6);
+    expect(G.cells[6]).toEqual("r0");
   });
 });
 

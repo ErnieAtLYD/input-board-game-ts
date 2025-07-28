@@ -1,26 +1,17 @@
+import React from 'react';
 import { Ctx } from 'boardgame.io';
-import { Piece, InputBoardGameState, Color } from '../types';
+import { InputBoardGameState } from '../types';
 import GamePiece from '../components/GamePiece';
-import { RED } from '../config';
+import { getPieceFromId } from './utils';
 
-export const colorToString = (color: Color) => {
-  return color === RED ? 'red' : 'blue';
-};
-
-export const getPieceFromId = (pieces: Piece[], pieceID: string) =>
-  pieces.find((piece) => piece.id === pieceID);
-
-export const isInPlayingArea = (position: number) =>
-  position >= 0 && position <= 11;
-
-export const isPlayersTurn = (playerID: string, ctx: Ctx) => {
-  return ctx.currentPlayer === playerID;
-};
-
-export const getNextMove = (piece: Piece): number => {
-  const { currentPos, moves } = piece;
-  return moves[(moves.indexOf(currentPos) + 1) % moves.length];
-};
+// Re-export utilities for backward compatibility
+export {
+  colorToString,
+  getPieceFromId,
+  isInPlayingArea,
+  isPlayersTurn,
+  getNextMove
+} from './utils';
 
 // Given a string ID, render out the GamePiece component
 export const renderPieceById = (
@@ -35,6 +26,7 @@ export const renderPieceById = (
       key={piece.id}
       {...piece}
       atLastPosition={
+        piece.moves.length >= 2 &&
         G.cells[piece.moves[piece.moves.length - 2]] === piece.id &&
         ctx.currentPlayer === piece.color
       }
