@@ -1,17 +1,9 @@
-import React from 'react';
+
 import { Ctx } from 'boardgame.io';
 import { InputBoardGameState } from '../types';
 import GamePiece from '../components/GamePiece';
 import { getPieceFromId } from './utils';
 
-// Re-export utilities for backward compatibility
-export {
-  colorToString,
-  getPieceFromId,
-  isInPlayingArea,
-  isPlayersTurn,
-  getNextMove
-} from './utils';
 
 /**
  * Renders a piece's component by its ID.

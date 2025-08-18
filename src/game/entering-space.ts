@@ -1,3 +1,4 @@
+
 import { RACK, MAX_TILES_IN_QUEUE } from '../config';
 import { Piece, InputBoardGameState } from '../types';
 import { getPieceFromId } from './utils';
