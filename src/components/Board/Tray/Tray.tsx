@@ -7,7 +7,8 @@ import {
   TRAY_INSET_COLOR,
 } from '../../../config';
 import { useBoardContext } from '../../../context';
-import { colorToString, renderPieceById } from '../../../game/utils';
+import { colorToString } from '../../../game/utils';
+import { renderPieceById } from '../../../game/utils.tsx';
 
 export const StyledTray = styled.div`
   border: ${BOARD_BORDER_WIDTH}px inset ${TRAY_INSET_COLOR};

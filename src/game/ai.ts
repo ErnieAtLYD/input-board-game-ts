@@ -10,6 +10,12 @@ import {
 import { AIMoves, InputBoardGameState, PossiblePieceIDs } from '../types';
 import { isInPlayingArea } from './utils';
 
+/**
+ * Enumerates the possible moves for the current player.
+ * @param G - The game state.
+ * @param ctx - The context of the game.
+ * @returns An array of possible moves.
+ */
 export const enumerate = (G: InputBoardGameState, ctx: Ctx) => {
   const moves = [] as AIMoves[];
   let nextCell;

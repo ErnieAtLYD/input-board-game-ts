@@ -13,7 +13,13 @@ export {
   getNextMove
 } from './utils';
 
-// Given a string ID, render out the GamePiece component
+/**
+ * Renders a piece's component by its ID.
+ * @param G - The game state.
+ * @param ctx - The context of the game.
+ * @param pieceID - The ID of the piece to render.
+ * @returns The rendered piece.
+ */
 export const renderPieceById = (
   G: InputBoardGameState,
   ctx: Ctx,

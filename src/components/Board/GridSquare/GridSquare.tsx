@@ -6,7 +6,7 @@ import {
   RED,
 } from '../../../config';
 import { useBoardContext, usePreviewContext } from '../../../context';
-import { renderPieceById } from '../../../game/utils';
+import { renderPieceById } from '../../../game/utils.tsx';
 import { Color } from '../../../types';
 import { GridSquareStyle } from './styles';
 

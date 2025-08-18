@@ -15,7 +15,7 @@ In this current version, the human player is RED, and the bot is BLUE. [A PDF wi
 
 ## To run locally
 
-`yarn && yarn start` - requires Node.js v18 or newer.
+`npm start` - requires Node.js v18 or newer.
 
 ## To Do / Someday
 
