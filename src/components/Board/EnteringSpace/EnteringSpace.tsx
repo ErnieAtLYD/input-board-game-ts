@@ -8,8 +8,7 @@ import {
 import { Color } from '../../../types';
 import { GridSquareStyle } from '../GridSquare/styles';
 import { useBoardContext, usePreviewContext } from '../../../context';
-import { colorToString } from '../../../game/utils';
-import { renderPieceById } from '../../../game/utils.tsx';
+import { colorToString, renderPieceById } from '../../../game/utils/';
 
 export const ESWrapper = styled(GridSquareStyle)<{}>``;
 

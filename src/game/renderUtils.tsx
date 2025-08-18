@@ -4,7 +4,6 @@ import { InputBoardGameState } from '../types';
 import GamePiece from '../components/GamePiece';
 import { getPieceFromId } from './utils';
 
-
 /**
  * Renders a piece's component by its ID.
  * @param G - The game state.

@@ -1,3 +1,8 @@
-// Re-export all utilities from both utils.ts and renderUtils.tsx
-export * from '../utils';
-export * from '../renderUtils';
+export {
+  colorToString,
+  getPieceFromId,
+  isInPlayingArea,
+  isPlayersTurn,
+  getNextMove,
+} from "../utils";
+export { renderPieceById } from "../renderUtils";

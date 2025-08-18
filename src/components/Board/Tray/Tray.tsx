@@ -1,14 +1,13 @@
-import styled from 'styled-components';
-import { Color } from '../../../types';
+import styled from "styled-components";
+import { Color } from "../../../types";
 import {
   BOARD_BORDER_WIDTH,
   CAPTURED,
   TRAY_BGCOLOR,
   TRAY_INSET_COLOR,
-} from '../../../config';
-import { useBoardContext } from '../../../context';
-import { colorToString } from '../../../game/utils';
-import { renderPieceById } from '../../../game/utils.tsx';
+} from "../../../config";
+import { useBoardContext } from "../../../context";
+import { colorToString, renderPieceById } from "../../../game/utils/";
 
 export const StyledTray = styled.div`
   border: ${BOARD_BORDER_WIDTH}px inset ${TRAY_INSET_COLOR};
