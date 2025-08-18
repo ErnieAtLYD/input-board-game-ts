@@ -1,3 +1,3 @@
-// Re-export all utilities from both utils.ts and utils.tsx
+// Re-export all utilities from both utils.ts and renderUtils.tsx
 export * from '../utils';
-export * from '../utils.tsx';
+export * from '../renderUtils';
