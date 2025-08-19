@@ -1,14 +1,25 @@
+
 import { RACK, MAX_TILES_IN_QUEUE } from '../config';
 import { Piece, InputBoardGameState } from '../types';
 import { getPieceFromId } from './utils';
 
+/**
+ * Returns a callback function that checks if a piece is in the player's rack.
+ * @param color - The color of the player.
+ * @returns A callback function that checks if a piece is in the player's rack.
+ */
 const inPlayerRackCB = (color: string) => {
   return function (piece: Piece) {
     return piece.currentPos === RACK && piece.color === color;
   };
 };
 
-// NOTE: does NOT progress piece.currentPos
+/**
+ * Pushes a piece to the entering space.
+ * // NOTE: does NOT progress piece.currentPos
+ * @param piece - The piece to push.
+ * @param G - The game state.
+ */
 export const pushPieceToStack = (piece: Piece, G: InputBoardGameState) => {
   const space = G.enteringSpace[piece.color];
   if (space.length) {
@@ -27,7 +38,11 @@ export const pushPieceToStack = (piece: Piece, G: InputBoardGameState) => {
   space.push(piece.id);
 };
 
-// NOTE: does NOT progress piece.currentPos
+/**
+ * Pops a piece from the entering space.
+ * @param piece - The piece to pop.
+ * @param G - The game state.
+ */
 export const popPieceFromStack = (piece: Piece, G: InputBoardGameState) => {
   const space = G.enteringSpace[piece.color];
   space.pop();

@@ -7,7 +7,7 @@ import {
 } from '../../../config';
 import { useBoardContext } from '../../../context';
 import { Color } from '../../../types';
-import { colorToString } from '../../../game/utils';
+import { colorToString } from '../../../game/utils/';
 import GamePiece from '../../GamePiece';
 
 const RackContainer = styled.div`

@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { BoardProps } from 'boardgame.io/react';
-import styled from 'styled-components';
+import { useState } from "react";
+import { BoardProps } from "boardgame.io/react";
+import styled from "styled-components";
 
-import { BoardContext, PreviewContext } from '../../context';
-import { InputBoardGameState, PossiblePositions } from '../../types';
-import Rack from './Rack';
-import { BLUE, BOARD_BORDER_WIDTH, RED } from '../../config';
-import { GridSquare } from './GridSquare';
-import EnteringSpace from './EnteringSpace';
-import { Tray } from './Tray';
-import './Board.css';
-import PlayerSection from './PlayerSection';
+import { BoardContext, PreviewContext } from "../../context";
+import { InputBoardGameState, PossiblePositions } from "../../types";
+import Rack from "./Rack";
+import { BLUE, BOARD_BORDER_WIDTH, RED } from "../../config";
+import { GridSquare } from "./GridSquare";
+import EnteringSpace from "./EnteringSpace";
+import { Tray } from "./Tray";
+import "./Board.css";
+import PlayerSection from "./PlayerSection";
 
 export const GameContainer = styled.div`
   display: flex;
@@ -27,18 +27,17 @@ interface InputBoardGameProps extends BoardProps<InputBoardGameState> {}
 
 export const Board = (boardProps: InputBoardGameProps) => {
   const [selected, setSelected] = useState<PossiblePositions | null>(null);
-  // const { ctx, playerID, log, matchID } = boardProps;
 
   return (
     <BoardContext.Provider value={boardProps}>
       <GameContainer>
         <PlayerSection player={RED} />
         <main
-          style={{ display: 'flex', alignItems: 'center', height: '100vh' }}
+          style={{ display: "flex", alignItems: "center", height: "100vh" }}
         >
           {/* <Header>Input Demo</Header> */}
           {/* Need className for hard coded CSS grid layout */}
-          <BoardContainer className='board'>
+          <BoardContainer className="board">
             <PreviewContext.Provider value={{ selected, setSelected }}>
               <Rack color={BLUE} />
               <Rack color={RED} />

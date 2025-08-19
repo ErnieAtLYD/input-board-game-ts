@@ -95,27 +95,27 @@ describe('utils functions', () => {
 
   describe('getNextMove', () => {
     it('should return the next move in the sequence', () => {
-      const piece = { ...R0, currentPos: ENTERING_SPACE, moves: [ENTERING_SPACE, 10, 6, 4, 2, 7, RACK] };
+      const piece: Piece = { ...R0, currentPos: ENTERING_SPACE, moves: [ENTERING_SPACE, 10, 6, 4, 2, 7, RACK] };
       expect(getNextMove(piece)).toBe(10);
     });
 
     it('should return the next move when in middle of sequence', () => {
-      const piece = { ...R0, currentPos: 10, moves: [ENTERING_SPACE, 10, 6, 4, 2, 7, RACK] };
+      const piece: Piece = { ...R0, currentPos: 10, moves: [ENTERING_SPACE, 10, 6, 4, 2, 7, RACK] };
       expect(getNextMove(piece)).toBe(6);
     });
 
     it('should wrap around to first move when at the end', () => {
-      const piece = { ...R0, currentPos: RACK, moves: [ENTERING_SPACE, 10, 6, 4, 2, 7, RACK] };
+      const piece: Piece = { ...R0, currentPos: RACK, moves: [ENTERING_SPACE, 10, 6, 4, 2, 7, RACK] };
       expect(getNextMove(piece)).toBe(ENTERING_SPACE);
     });
 
     it('should handle single move array', () => {
-      const piece = { ...R0, currentPos: 5, moves: [5] };
+      const piece: Piece = { ...R0, currentPos: 5, moves: [5] };
       expect(getNextMove(piece)).toBe(5);
     });
 
     it('should handle when current position is not in moves array', () => {
-      const piece = { ...R0, currentPos: 99, moves: [ENTERING_SPACE, 10, 6, 4, 2, 7, RACK] };
+      const piece: Piece = { ...R0, currentPos: CAPTURED, moves: [ENTERING_SPACE, 10, 6, 4, 2, 7, RACK] };
       expect(getNextMove(piece)).toBe(ENTERING_SPACE);
     });
   });
