@@ -82,7 +82,7 @@ export const toRack: Move<InputBoardGameState> = (
   const piece = getPieceFromId(G.pieces, pieceId);
   if (
     !piece ||
-    !isPlayersTurn(ctx.currentPlayer, ctx) ||
+    !isPlayersTurn(piece.color, ctx) ||
     piece.nextMove !== RACK
   ) {
     return INVALID_MOVE;
@@ -107,7 +107,7 @@ export const toEnteringSpace: Move<InputBoardGameState> = (
   const piece = getPieceFromId(G.pieces, pieceId);
   if (
     !piece ||
-    !isPlayersTurn(ctx.currentPlayer, ctx) ||
+    !isPlayersTurn(piece.color, ctx) ||
     piece.nextMove !== RACK
   ) {
     return INVALID_MOVE;
