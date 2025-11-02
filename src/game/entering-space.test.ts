@@ -54,7 +54,7 @@ describe('the queue', () => {
       expect(G.pieces[1].canMove).toBe(true);
     });
 
-    it('makes the rest of the rack pieces canMove: false w/ queue size > 3', () => {
+    it('prevents additional rack pieces from moving once the queue reaches its maximum size of 3', () => {
       [R0, R1, R2, R3].forEach((p) => G.pieces.push(p));
       ['r0', 'r1', 'r2'].forEach((id) => callMove(movePiece, G, _ctx, id));
       expect(G.pieces[0].canMove).toBe(false);
