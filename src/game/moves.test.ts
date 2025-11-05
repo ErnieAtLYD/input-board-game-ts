@@ -1,9 +1,9 @@
 import { INVALID_MOVE } from "boardgame.io/core";
 import { Ctx } from "boardgame.io";
-import { CAPTURED, ENTERING_SPACE } from "../config";
+import { CAPTURED, ENTERING_SPACE, RACK } from "../config";
 import { _ctx, _G, _R0, _R2, _B3 } from "../config/testing";
 import { InputBoardGameState, Piece } from "../types";
-import { movePiece } from "./moves";
+import { movePiece, toRack, toEnteringSpace } from "./moves";
 
 // Helper to call move functions in tests
 const callMove = (
@@ -78,27 +78,93 @@ describe("general movement", () => {
     // Set up R0 at position 10 and B3 at position 0 to create a capture scenario
     const r0 = JSON.parse(JSON.stringify(R0));
     const b3 = JSON.parse(JSON.stringify(B3));
-    
+
     // Position R0 at board position 10 with next move to position 6
     r0.currentPos = 10;
     r0.nextMove = 6;
-    
+
     // Position B3 at board position 6 (where R0 will move to capture it)
     b3.currentPos = 6;
     b3.nextMove = 4;
-    
+
     [r0, b3].forEach((p) => G.pieces.push(p));
-    
+
     // Set up the board state
     G.cells[10] = "r0";
     G.cells[6] = "b3";
-    
+
     // Move R0 to capture B3
     callMove(movePiece, G, _ctx, "r0");
-    
+
     expect(G.pieces[1].currentPos).toEqual(CAPTURED);
     expect(G.pieces[0].currentPos).toEqual(6);
     expect(G.cells[6]).toEqual("r0");
+  });
+});
+
+describe("toRack", () => {
+  let G: InputBoardGameState;
+  let B3: Piece;
+
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.clearAllTimers();
+  });
+
+  beforeEach(() => {
+    G = JSON.parse(JSON.stringify(_G)); // deep copy
+    B3 = JSON.parse(JSON.stringify(_B3));
+  });
+
+  it("should return INVALID_MOVE if not players turn", () => {
+    // Set up B3 (blue piece) at position 3 with next move to RACK
+    // B3's moves: [ENTERING_SPACE, 0, 4, 8, 10, 3, RACK]
+    B3.currentPos = 3;
+    B3.nextMove = RACK;
+    G.pieces.push(B3);
+    G.cells[3] = "b3";
+
+    // Try to move blue piece as red player
+    const ctx = JSON.parse(JSON.stringify(_ctx));
+    ctx.currentPlayer = "0"; // Red player
+    expect(callMove(toRack, G, ctx, B3.id)).toBe(INVALID_MOVE);
+  });
+});
+
+describe("toEnteringSpace", () => {
+  let G: InputBoardGameState;
+  let B3: Piece;
+
+  beforeEach(() => {
+    jest.useFakeTimers();
+  });
+
+  afterEach(() => {
+    jest.runOnlyPendingTimers();
+    jest.clearAllTimers();
+  });
+
+  beforeEach(() => {
+    G = JSON.parse(JSON.stringify(_G)); // deep copy
+    B3 = JSON.parse(JSON.stringify(_B3));
+  });
+
+  it("should return INVALID_MOVE if not players turn", () => {
+    // Set up B3 (blue piece) at position 3 with next move to RACK
+    // B3's moves: [ENTERING_SPACE, 0, 4, 8, 10, 3, RACK]
+    B3.currentPos = 3;
+    B3.nextMove = RACK;
+    G.pieces.push(B3);
+    G.cells[3] = "b3";
+
+    // Try to move blue piece as red player
+    const ctx = JSON.parse(JSON.stringify(_ctx));
+    ctx.currentPlayer = "0"; // Red player
+    expect(callMove(toEnteringSpace, G, ctx, B3.id)).toBe(INVALID_MOVE);
   });
 });
 
