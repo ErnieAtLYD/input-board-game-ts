@@ -12,7 +12,7 @@ import { Tray } from "./Tray";
 import "./Board.css";
 import PlayerSection from "./PlayerSection";
 
-export const GameContainer = styled.div`
+const GameContainer = styled.div`
   display: flex;
   align-items: center;
 `;
